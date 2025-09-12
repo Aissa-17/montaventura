@@ -1,0 +1,332 @@
+/* ==================== Variables de color ==================== */
+:root {
+  --color-principal:   #102a43;   /* Azul muy profundo */
+  --color-secundario:  #ffffff;   /* Blanco puro */
+  --color-acento:      #66b2ff;   /* Azul hielo vibrante */
+  --color-fondo:       #f0f8ff;   /* Casi blanco con tintes azulados */
+  --sombra:            0 4px 20px rgba(16, 42, 67, 0.15);
+  --ice-crack:         url('data:image/svg+xml;utf8,\
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">\
+    <path stroke="%2366b2ff" stroke-width="1" d="M0,20 L100,80 M20,0 L80,100"/>\
+    </svg>') repeat;
+}
+
+/* ==================== Reset básico ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ==================== Fondo “ice shards” ==================== */
+body {
+  font-family: "Outfit", Arial, sans-serif;
+  background: var(--color-fondo) var(--ice-crack);
+  background-size: 200px 200px;
+  color: var(--color-principal);
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ==================== Partículas de hielo ==================== */
+@keyframes drift {
+  from { transform: translateY(-5vh) translateX(0); opacity: 0; }
+  10%  { opacity: 0.6; }
+  to   { transform: translateY(105vh) translateX(20vw); opacity: 0; }
+}
+.ice-particle {
+  position: absolute;
+  top: -5vh;
+  left: random(100);
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--color-acento);
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: drift calc(8s + random(12s)) linear infinite;
+  opacity: 0;
+}
+
+/* ==================== Layout general ==================== */
+.layout {
+  display: flex;
+  width: 100%;
+}
+
+/* ==================== Barra lateral ==================== */
+.barra-lateral {
+  background: rgba(16, 42, 67, 0.9);
+  color: var(--color-secundario);
+  width: 280px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.barra-lateral .logo {
+  width: 120px;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.nombre-empresa {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.cif {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
+
+.direccion,
+.telefono,
+.correo {
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.correo a {
+  color: var(--color-acento);
+  text-decoration: underline;
+  font-style: italic;
+}
+
+/* ==================== Toggle botón (móvil) ==================== */
+.toggle-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1100;
+  background: var(--color-acento);
+  color: #102a43;
+  border: 2px solid #fff;
+  border-radius: 1rem;
+  padding: .6rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 2px 6px rgba(16,42,67,0.3);
+}
+
+/* ==================== Contenido principal ==================== */
+.contenido {
+  flex: 1;
+  padding: 2rem 6vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.contenido h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* ==== Carril horizontal puro con Flexbox ==== */
+.grid-actividades {
+  display: flex !important;         /* Flex en vez de Grid */
+  flex-wrap: nowrap !important;     /* ¡sin envolver! */
+  justify-content: center;          /* centra las tarjetas cuando hay hueco */
+  gap: 1.5rem !important;
+  overflow-x: auto !important;      /* scroll lateral si sobran tarjetas */
+  padding-bottom: 1rem !important;  /* espacio para la barra de scroll */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ancho fijo + recupera fondo/sombra/radio en cada tarjeta */
+.tarjeta-actividad {
+  flex: 0 0 360px !important;       /* no crece, no encoge, base 360px */
+  width: 360px !important;          /* ancho exacto */
+  max-width: none !important;       /* anula cualquier max-width previo */
+
+  background: var(--color-secundario) !important;
+  box-shadow: var(--sombra)           !important;
+  border-radius: 1rem                 !important;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.tarjeta-actividad:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+}
+
+/* Opcional: estilizado del scrollbar */
+.grid-actividades::-webkit-scrollbar {
+  height: 6px;
+}
+.grid-actividades::-webkit-scrollbar-thumb {
+  background: rgba(16,42,67,0.3);
+  border-radius: 3px;
+}
+
+
+
+.imagen-actividad {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.info {
+  padding: 1rem 1.25rem 0.75rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.titulo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.detalles {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.detalles .icono {
+  margin-right: 0.4rem;
+}
+
+/* ==================== Animación de entrada mejorada ==================== */
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animar {
+  animation: entrar .8s ease-out forwards;
+}
+
+/* ==================== Responsive: móvil (<980px) ==================== */
+@media (max-width: 980px) {
+  body {
+    flex-direction: column;
+    padding-bottom: 100px;
+    position: relative;
+  }
+
+  .toggle-btn {
+    display: block;
+  }
+
+  .barra-lateral {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    gap: 0.5rem;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+
+  .barra-lateral .logo {
+    width: 50px;
+    height: auto;
+  }
+
+  .barra-lateral .nombre-empresa,
+  .barra-lateral .cif,
+  .barra-lateral .direccion,
+  .barra-lateral .telefono,
+  .barra-lateral .correo {
+    display: none;
+  }
+
+  .contenido {
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  .grid-actividades {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 1rem;
+  }
+
+  .grid-actividades::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tarjeta-actividad {
+    max-width: 100%;
+    border-radius: 1rem;
+    padding: 0;
+    box-shadow: var(--sombra);
+  }
+}
+
+/* ==================== Botón de inscripción ==================== */
+a.btn-inscribirse {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1rem;
+  text-decoration: none;
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+  padding: 0.8rem 1.4rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  width: fit-content;
+  transition: transform 0.2s;
+}
+
+a.btn-inscribirse:hover {
+  transform: translateY(-2px);
+}
+
+/* ==================== Wrap multi-fila sin scroll ==================== */
+.grid-actividades {
+  display: flex !important;        /* flex-box */
+  flex-wrap: wrap !important;      /* envuelve al llegar al borde */
+  justify-content: center;         /* centra cada fila */
+  
+  /* quitamos el scroll lateral */
+  overflow-x: visible !important;  
+  
+  /* gaps en ambas direcciones */
+  gap: 1.5rem !important;          
+  row-gap: 1.5rem !important;      
+  
+  /* asegurar que no meta padding extra */
+  padding: 0;
+}
+
+/* opcional: espacio extra bajo cada tarjeta */
+.tarjeta-actividad {
+  margin-bottom: 0 !important;
+}

@@ -1,0 +1,20 @@
+.barra-boton {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem 0;
+}
+.btn-ver-todo {
+  background: var(--color-principal);
+  color: var(--color-secundario);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: var(--sombra);
+  transition: transform 0.2s ease;
+}
+.btn-ver-todo:hover {
+  transform: scale(1.03);
+}
+
