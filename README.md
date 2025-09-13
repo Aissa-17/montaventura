@@ -1,1 +1,1 @@
-"# Sistema de reservas completo" 
+Sistema de reservas completo
