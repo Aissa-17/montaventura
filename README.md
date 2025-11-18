@@ -36,7 +36,9 @@ montaventura/
 │   └── api-calendario.php
 │
 │── templates/
+
 │   ├── cancel.php
+
 │   ├── reserva.php
 │   ├── success.php
 │   └── formulario/
